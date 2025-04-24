@@ -11,6 +11,11 @@ const Allusers = () => {
     const BASE_URL = 'https://beckend-cinema.onrender.com';
     const currentUsername = sessionStorage.username;
 
+    // Configure axios defaults
+    axios.defaults.withCredentials = true;
+    axios.defaults.headers.common['Content-Type'] = 'application/json';
+    axios.defaults.headers.common['Accept'] = 'application/json';
+
     const next = (user) => {
         sessionStorage.setItem('user', JSON.stringify(user));
         navigate('/edit_user/');
@@ -18,7 +23,7 @@ const Allusers = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('https://beckend-cinema.onrender.com/get_all_users');
+            const response = await axios.get(`${BASE_URL}/get_all_users`);
             const filteredUsers = response.data.map(user => {
                 const filteredPermissions = Object.entries(user.permissions || {})
                     .filter(([_, value]) => value === true)
@@ -34,6 +39,7 @@ const Allusers = () => {
             setShowUsersList(true);
         } catch (error) {
             console.error('Error fetching users:', error);
+            setMessage('Error fetching users. Please try again later.');
         }
     };
 
@@ -52,12 +58,7 @@ const Allusers = () => {
 
     const deleteUser = async (userId) => {
         try {
-            const response = await axios.delete(`${BASE_URL}/delete_user/${userId}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true
-            });
+            const response = await axios.delete(`${BASE_URL}/delete_user/${userId}`);
 
             if (response.data.message === "deleted") {
                 setMessage("User deleted successfully!");

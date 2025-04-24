@@ -61,7 +61,7 @@ const Allsubscriptions = () => {
 
     const fetchWatchedMovies = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/watched_movies`);
+            const response = await axios.get('https://beckend-cinema.onrender.com/watched_movies/');
             setWatchedMovies(response.data);
         } catch (error) {
             console.error('Error fetching watched movies:', error);
