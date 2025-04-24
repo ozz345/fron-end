@@ -47,7 +47,7 @@ const Allsubscriptions = () => {
 
     const fetchSubscriptions = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/add_members`);
+            const response = await axios.get('https://beckend-cinema.onrender.com/add_members/');
             setSubscriptions(response.data);
             setFilteredSubscriptions(response.data);
             if (response.data && response.data.length > 0) {
