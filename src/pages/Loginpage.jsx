@@ -28,7 +28,7 @@ const Loginpage = () => {
       const userExists = users.some(user => user.username === username);
 
       // Get MongoDB users and handle the response properly
-      const { data: mongoUsers } = await axios.get(`${USERS_URL}/get_all_users_MDB`);
+      const { data: mongoUsers } = await axios.get(USERS_URL);
       console.log('MongoDB Response:', mongoUsers); // Debug log
 
       // Ensure mongoUsers is an array and find the user
