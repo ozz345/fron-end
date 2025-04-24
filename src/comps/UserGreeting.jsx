@@ -9,7 +9,7 @@ const UserGreeting = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/get_all_users');
+        const response = await axios.get('https://beckend-cinema.onrender.com/get_all_users');
         const currentUser = response.data.find(user =>
           user.username === sessionStorage.getItem('username')
         );

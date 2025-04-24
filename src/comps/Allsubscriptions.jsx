@@ -13,7 +13,7 @@ const Allsubscriptions = () => {
     const [watchedFilter, setWatchedFilter] = useState('all');
     const [watchedMovies, setWatchedMovies] = useState([]);
     const navigate = useNavigate();
-    const BASE_URL = 'http://127.0.0.1:5000';
+    const BASE_URL = 'https://beckend-cinema.onrender.com';
     const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
     const permissions = userData.permissions || {};
 

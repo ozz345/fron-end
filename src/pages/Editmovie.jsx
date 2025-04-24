@@ -18,7 +18,7 @@ const Editmovie = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:5000/movies/${movie.id}`, movie);
+      const response = await axios.put(`https://beckend-cinema.onrender.com/movies/${movie.id}`, movie);
       if (response.data.message === "updated") {
         setMessage("Movie updated successfully!");
         setTimeout(() => {

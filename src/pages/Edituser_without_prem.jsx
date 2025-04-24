@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:5000';
+const BASE_URL = 'https://beckend-cinema.onrender.com';
 const USER_UPDATE = `${BASE_URL}/update_user`;
 const USER_PREMMISION = `${BASE_URL}/update_premission`;
 const ADD_USER_URL = `${BASE_URL}/add_users/`;

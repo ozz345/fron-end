@@ -22,7 +22,7 @@ const Allmoviesforsubs = ({ mem_id }) => {
 
     const fetchMovies = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/movies');
+            const response = await axios.get('https://beckend-cinema.onrender.com/movies');
             console.log('Movies data:', response.data); // Debug log
             setMovies(response.data);
         } catch (error) {
@@ -33,7 +33,7 @@ const Allmoviesforsubs = ({ mem_id }) => {
 
     const fetchWatchedMovies = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/watched_movies/');
+            const response = await axios.get('https://beckend-cinema.onrender.com/watched_movies/');
             console.log('Watched movies data:', response.data); // Debug log
             // Find the subscription for this member
             const memberSubscription = response.data.find(sub => sub.MemberId === mem_id);
@@ -62,7 +62,7 @@ const Allmoviesforsubs = ({ mem_id }) => {
                 return;
             }
 
-            const response = await axios.post('http://localhost:5000/watched_movies/', {
+            const response = await axios.post('https://beckend-cinema.onrender.com/watched_movies/', {
                 MemberId: mem_id,
                 movie_id: selectedMovie,
                 watch_date: watchDate
@@ -83,7 +83,7 @@ const Allmoviesforsubs = ({ mem_id }) => {
 
     const handleDeleteWatchedMovie = async (movieId) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/watched_movies/${mem_id}/${movieId}`);
+            const response = await axios.delete(`https://beckend-cinema.onrender.com/watched_movies/${mem_id}/${movieId}`);
             if (response.data.message === 'deleted') {
                 setMessage('Movie removed from watched list');
                 fetchWatchedMovies();
@@ -112,7 +112,7 @@ const Allmoviesforsubs = ({ mem_id }) => {
 
     const handleDelete = async (movieId) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/movies/${movieId}`);
+            const response = await axios.delete(`https://beckend-cinema.onrender.com/movies/${movieId}`);
             if (response.data.message === 'deleted') {
                 setMessage('Movie deleted successfully');
                 fetchMovies();

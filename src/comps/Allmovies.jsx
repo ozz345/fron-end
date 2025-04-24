@@ -50,7 +50,7 @@ const Allmovies = () => {
 
     const fetchMovies = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/movies/');
+            const response = await axios.get('https://beckend-cinema.onrender.com/movies/');
             setMovies(response.data);
             setFilteredMovies(response.data);
         } catch (error) {
@@ -61,7 +61,7 @@ const Allmovies = () => {
 
     const fetchSubscriptions = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/watched_movies/');
+            const response = await axios.get('https://beckend-cinema.onrender.com/watched_movies/');
             setSubscriptions(response.data);
         } catch (error) {
             console.error('Error fetching subscriptions:', error);
@@ -71,7 +71,7 @@ const Allmovies = () => {
 
     const fetchMembers = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/add_members/');
+            const response = await axios.get('https://beckend-cinema.onrender.com/add_members/');
             setMembers(response.data);
         } catch (error) {
             console.error('Error fetching members:', error);
@@ -81,7 +81,7 @@ const Allmovies = () => {
 
     const handleSync = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/movies/sync');
+            const response = await axios.post('https://beckend-cinema.onrender.com/movies/sync');
             setMessage(response.data.message);
             if (response.data.message === 'success') {
                 fetchMovies();
@@ -118,7 +118,7 @@ const Allmovies = () => {
 
     const handleDelete = async (movieId) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/movies/${movieId}`);
+            const response = await axios.delete(`https://beckend-cinema.onrender.com/movies/${movieId}`);
             if (response.data.message === 'deleted') {
                 setMessage('Movie deleted successfully');
                 fetchMovies();

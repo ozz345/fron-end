@@ -8,7 +8,7 @@ const Allusers = () => {
     const [showUsersList, setShowUsersList] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
-    const BASE_URL = 'http://127.0.0.1:5000';
+    const BASE_URL = 'https://beckend-cinema.onrender.com';
     const currentUsername = sessionStorage.username;
 
     const next = (user) => {
@@ -18,7 +18,7 @@ const Allusers = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/get_all_users');
+            const response = await axios.get('https://beckend-cinema.onrender.com/get_all_users');
             const filteredUsers = response.data.map(user => {
                 const filteredPermissions = Object.entries(user.permissions || {})
                     .filter(([_, value]) => value === true)

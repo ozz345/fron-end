@@ -27,7 +27,7 @@ const Addmovie = () => {
         genres: movie.genres.split(',').map(genre => genre.trim())
       };
 
-      const response = await axios.post('http://localhost:5000/add_movies/', movieData);
+      const response = await axios.post('https://beckend-cinema.onrender.com/add_movies/', movieData);
       if (response.data.message === 'success') {
         setMessage('Movie added successfully!');
         setTimeout(() => {

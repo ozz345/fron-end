@@ -19,7 +19,7 @@ const Movie_single = () => {
 
     const fetchMovies = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/movies/');
+            const response = await axios.get('https://beckend-cinema.onrender.com/movies/');
             const movie_sing = response.data.find(movie => movie.name === movieData.name);
 
             setMovies(response.data);
@@ -36,7 +36,7 @@ const Movie_single = () => {
 
     const handleSync = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/movies/sync');
+            const response = await axios.post('https://beckend-cinema.onrender.com/movies/sync');
             setMessage(response.data.message);
             if (response.data.message === 'success') {
                 fetchMovies(); // Refresh the list after syncing
@@ -60,7 +60,7 @@ const Movie_single = () => {
 
     const handleDelete = async (movieId) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/movies/${movieId}`);
+            const response = await axios.delete(`https://beckend-cinema.onrender.com/movies/${movieId}`);
             if (response.data.message === 'deleted') {
                 setMessage('Movie deleted successfully');
                 fetchMovies(); // Refresh the list after deletion

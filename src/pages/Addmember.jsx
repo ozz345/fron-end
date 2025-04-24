@@ -20,7 +20,7 @@ const Addmember = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/add_member/', member);
+      const response = await axios.post('https://beckend-cinema.onrender.com/add_member/', member);
       if (response.data.message === 'success') {
         setMessage('Member added successfully!');
         setTimeout(() => {
