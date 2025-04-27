@@ -1,70 +1,91 @@
 import { Link, useNavigate, Outlet } from 'react-router-dom';
 import UserGreeting from '../comps/UserGreeting';
 import { useState } from 'react';
+import '../styles/Navigation.css';
 
 const Mainpage = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const userData = JSON.parse(sessionStorage.getItem('user') || '{}');
   const permissions = userData.permissions || {};
 
   // Check if user has any view permissions
   const hasAnyViewPermission = permissions.viewMovies || permissions.viewSubscriptions;
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <div>
-      <nav style={{
-        backgroundColor: '#333',
-        padding: '1rem',
-        marginBottom: '2rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
+      <nav className="nav-container">
+        <div className="nav-content">
+          <UserGreeting />
 
-        <UserGreeting/>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          {hasAnyViewPermission && (
-            <h1 style={{ color: 'white', margin: 0 }}>
-              <Link to="/main_page/" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px', backgroundColor: '#444' }}>
-                Movies & Subscriptions
-              </Link>
-            </h1>
-          )}
-          <div style={{ display: 'flex', gap: '1rem' }}>
+          <div className="nav-links">
+            {hasAnyViewPermission && (
+              <h1 className="nav-title">
+                <Link to="/main_page/" className="nav-link">
+                  Movies & Subscriptions
+                </Link>
+              </h1>
+            )}
             {permissions.viewMovies && (
-              <Link to="movies" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px', backgroundColor: '#444' }}>
+              <Link to="movies" className="nav-link">
                 Movies
               </Link>
             )}
             {permissions.viewSubscriptions && (
-              <Link to="subscription" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px', backgroundColor: '#444' }}>
+              <Link to="subscription" className="nav-link">
                 Subscriptions
               </Link>
             )}
-            <Link to="user-managemant" style={{ color: 'white', textDecoration: 'none', padding: '0.5rem 1rem', borderRadius: '4px', backgroundColor: '#444' }}>
+            <Link to="user-managemant" className="nav-link">
               User Management
             </Link>
           </div>
+
+          <button
+            onClick={() => navigate('/')}
+            className="logout-button"
+          >
+            Log Out
+          </button>
+
+          <button
+            className="mobile-menu-button"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            <i className={`fas fa-${isMobileMenuOpen ? 'times' : 'bars'}`}></i>
+          </button>
         </div>
-        <button
-          onClick={() => navigate('/')}
-          style={{
-            color: 'white',
-            backgroundColor: '#dc3545',
-            border: 'none',
-            padding: '0.5rem 1rem',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          Log Out
-        </button>
+
+        <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+          {hasAnyViewPermission && (
+            <Link to="/main_page/" className="nav-link" onClick={toggleMobileMenu}>
+              Movies & Subscriptions
+            </Link>
+          )}
+          {permissions.viewMovies && (
+            <Link to="movies" className="nav-link" onClick={toggleMobileMenu}>
+              Movies
+            </Link>
+          )}
+          {permissions.viewSubscriptions && (
+            <Link to="subscription" className="nav-link" onClick={toggleMobileMenu}>
+              Subscriptions
+            </Link>
+          )}
+          <Link to="user-managemant" className="nav-link" onClick={toggleMobileMenu}>
+            User Management
+          </Link>
+        </div>
       </nav>
 
-      <div style={{ padding: '0 2rem' }}>
+      <div className="main-content">
         <Outlet />
       </div>
     </div>
