@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
+import '../styles/Allusers.css';
 
 const Allusers = () => {
     const [users, setUsers] = useState([]);
@@ -94,7 +95,7 @@ const Allusers = () => {
                         <i className="fas fa-search"></i>
                         <input
                             type="text"
-                            placeholder="Search..."
+                            placeholder="Search users..."
                             value={searchTerm}
                             onChange={handleSearch}
                             className="search-input"
@@ -102,11 +103,11 @@ const Allusers = () => {
                     </div>
 
                     <div className="action-buttons">
-                        <button onClick={fetchUsers} className="all-movies-button">
-                            <i className="fas fa-users"></i> All Users
+                        <button onClick={fetchUsers} className="refresh-button">
+                            <i className="fas fa-sync-alt"></i> Refresh
                         </button>
                         {currentUsername === 'tret' && (
-                            <button onClick={handleAddUserClick} className="add-movie-button">
+                            <button onClick={handleAddUserClick} className="add-button">
                                 <i className="fas fa-user-plus"></i> Add User
                             </button>
                         )}
@@ -120,7 +121,7 @@ const Allusers = () => {
                         filteredUsers.map((user) => (
                             <div key={user.id} className="user-card">
                                 <div className="user-details">
-                                    <h2 className="user-title">{user.firstname} {user.lastname}</h2>
+                                    <h2 className="user-name">{user.firstname} {user.lastname}</h2>
                                     <div className="user-info">
                                         <div className="info-item">
                                             <i className="fas fa-user"></i>
@@ -128,17 +129,17 @@ const Allusers = () => {
                                         </div>
                                         <div className="info-item">
                                             <i className="fas fa-clock"></i>
-                                            <span>Session Timeout: {user.sessiontimeout}</span>
+                                            <span>Session Timeout: {user.sessiontimeout} min</span>
                                         </div>
                                         <div className="info-item">
                                             <i className="fas fa-calendar"></i>
-                                            <span>Created Date: {user.createddate}</span>
+                                            <span>Created: {user.createddate}</span>
                                         </div>
                                     </div>
 
                                     <div className="permissions-section">
                                         <h3 className="section-title">
-                                            <i className="fas fa-key"></i> Active Permissions
+                                            <i className="fas fa-key"></i> Permissions
                                         </h3>
                                         <div className="permissions-grid">
                                             {Object.keys(user.permissions || {}).map(permission => (
@@ -154,14 +155,12 @@ const Allusers = () => {
                                             <button
                                                 onClick={() => next(user)}
                                                 className="action-button edit-button"
-                                                title="Edit User"
                                             >
                                                 <i className="fas fa-edit"></i> Edit
                                             </button>
                                             <button
                                                 onClick={() => deleteUser(user.id)}
                                                 className="action-button delete-button"
-                                                title="Delete User"
                                             >
                                                 <i className="fas fa-trash"></i> Delete
                                             </button>
@@ -173,7 +172,7 @@ const Allusers = () => {
                     ) : (
                         <div className="no-results">
                             <i className="fas fa-users"></i>
-                            <p>No users found matching your criteria</p>
+                            <p>No users found</p>
                         </div>
                     )}
                 </div>
