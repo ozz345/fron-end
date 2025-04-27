@@ -22,12 +22,17 @@ const Allmoviesforsubs = ({ mem_id }) => {
 
     const fetchMovies = async () => {
         try {
-            const response = await axios.get('https://beckend-cinema.onrender.com/movies');
-            console.log('Movies data:', response.data); // Debug log
-            setMovies(response.data);
+            const response = await axios.get('https://beckend-cinema.onrender.com/movies/');
+            if (response.data && Array.isArray(response.data)) {
+                console.log('Movies data:', response.data);
+                setMovies(response.data);
+            } else {
+                console.error('Invalid response format:', response.data);
+                setMessage('Invalid response format from server');
+            }
         } catch (error) {
             console.error('Error fetching movies:', error);
-            setMessage('Error fetching movies');
+            setMessage(`Error fetching movies: ${error.message}`);
         }
     };
 
