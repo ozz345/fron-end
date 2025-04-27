@@ -81,27 +81,30 @@ const Edituser = () => {
         timeout: 5000
       });
 
-
-      const premissions = await axios.put(`${USER_PREMMISION}/${permissions.id}`, requestDatapermissions, {
+      const permissionResponse = await axios.put(`${BASE_URL}/update_permission/${permissions.id}`, requestDatapermissions, {
         headers: {
           'Content-Type': 'application/json',
         },
         timeout: 5000
       });
 
-      if (response.data.message &&  premissions.data.message === "updated") {
-
+      if (response.data.message === "updated" &&
+        (permissionResponse.data.message === "updated" ||
+         permissionResponse.data.message === "Permission updated successfully")) {
         setMessage("User updated successfully!");
         setTimeout(() => {
           navigate("/main_page/user-managemant");
-        }, 1000)
-
+        }, 1000);
       } else {
+        console.error('Update responses:', {
+          user: response.data,
+          permission: permissionResponse.data
+        });
         setMessage("Error: Failed to update user permissions.");
       }
     } catch (error) {
       console.error('Error:', error);
-      setMessage("An error occurred while updating permissions. Please try again later.");
+      setMessage(`An error occurred while updating permissions: ${error.message}`);
     }
 
     console.log(requestDatapermissions);
